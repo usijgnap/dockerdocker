@@ -1,8 +1,3 @@
-from keras.models import Sequential
-from keras.layers import Conv2D
-from keras.layers import Activation, Dropout, Flatten, Dense
-from keras.preprocessing.image import ImageDataGenerator
-
 import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
@@ -15,6 +10,10 @@ from keras.utils import to_categorical
 from tensorflow import keras
 from keras import layers
 
+from keras.models import Sequential
+from keras.layers import Conv2D
+from keras.layers import Activation, Dropout, Flatten, Dense
+from keras.preprocessing.image import ImageDataGenerator
 # 
 
 class_name = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
@@ -41,9 +40,10 @@ X_train = X_train.reshape(-1,28, 28, 1)
 
 X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=0.2, random_state=0, stratify=y_train)
 
-
 y_train_o = to_categorical(y_train)
 y_val_o = to_categorical(y_val)
+
+### model
 
 model = Sequential()
 model.add(Conv2D(32, (3, 3), input_shape=(28, 28, 1)))
@@ -66,6 +66,7 @@ model.add(Activation('softmax'))
 model.compile(loss='categorical_crossentropy',
               optimizer='rmsprop',
               metrics=['accuracy'])
+###
 
 EPOCHS = 50
 BATCH_SIZE = 256
